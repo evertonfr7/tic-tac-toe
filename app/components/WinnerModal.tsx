@@ -4,36 +4,61 @@ import "./WinnerModal.css";
 interface WinnerModalProps {
   winner: "X" | "O" | "Draw" | null;
   onPlayAgain: () => void;
+  gameMode?: "pvp" | "pve";
+  playerSymbol?: "X" | "O";
 }
 
-export default function WinnerModal({ winner, onPlayAgain }: WinnerModalProps) {
+const PARTICLES = Array.from({ length: 8 });
+
+export default function WinnerModal({
+  winner,
+  onPlayAgain,
+  gameMode = "pvp",
+  playerSymbol = "X",
+}: WinnerModalProps) {
   if (!winner) return null;
 
-  let winnerText = "WINNER";
+  const isPve = gameMode === "pve";
+  const isWin = winner !== "Draw";
   let winnerColorClass = "";
-  
-  if (winner === "X") winnerColorClass = "text-primary neon-shadow-primary";
-  if (winner === "O") winnerColorClass = "text-secondary neon-shadow-secondary";
-  if (winner === "Draw") {
-    winnerText = "DRAW";
-    winnerColorClass = "text-on-surface";
-  }
+  if (winner === "X") winnerColorClass = "text-primary";
+  if (winner === "O") winnerColorClass = "text-secondary";
+
+  const getWinnerLabel = () => {
+    if (!isWin) return "";
+    if (!isPve) return winner;
+    return winner === playerSymbol ? "YOU" : "CPU";
+  };
+
+  const getResultLabel = () => {
+    if (!isWin) return "DRAW";
+    if (!isPve) return "WINNER";
+    return winner === playerSymbol ? "YOU WIN!" : "CPU WINS!";
+  };
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content glass-panel">
-        <h2 className="title-sm" style={{ color: "var(--on-surface-variant)", marginBottom: "var(--spacing-2)" }}>
-          GAME OVER
-        </h2>
-        
-        {winner !== "Draw" && (
-          <div className={`display-lg ${winnerColorClass}`} style={{ fontSize: "5rem", marginBottom: "-1rem" }}>
-            {winner}
+      <div className={`modal-content glass-panel ${isWin ? "modal-win" : "modal-draw"}`}>
+        {isWin && (
+          <div className="burst-container" aria-hidden="true">
+            {PARTICLES.map((_, i) => (
+              <span key={i} className={`burst-particle burst-particle-${i + 1}`} />
+            ))}
           </div>
         )}
-        
-        <div className={`display-lg ${winner !== "Draw" ? "" : winnerColorClass}`}>
-          {winnerText}
+
+        <p className="modal-label title-sm">
+          {isWin ? "GAME OVER" : "NO WINNER"}
+        </p>
+
+        {isWin && (
+          <div className={`modal-player display-lg ${winnerColorClass} winner-float`}>
+            {getWinnerLabel()}
+          </div>
+        )}
+
+        <div className={`modal-result display-lg ${isWin ? winnerColorClass : "text-on-surface"} ${isWin ? "winner-pulse" : "draw-shimmer"}`}>
+          {getResultLabel()}
         </div>
 
         <button className="btn-play-again title-sm smooth-transition" onClick={onPlayAgain}>

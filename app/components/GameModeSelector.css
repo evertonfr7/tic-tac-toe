@@ -1,0 +1,51 @@
+.mode-selector-container {
+  display: flex;
+  gap: var(--spacing-2);
+  padding: 0.25rem;
+  background-color: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-full);
+}
+
+.mode-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mode-btn:hover:not(.mode-btn-active-pvp):not(.mode-btn-active-pve) {
+  color: var(--on-surface);
+  background-color: var(--surface-container-high);
+}
+
+.mode-btn svg {
+  opacity: 0.7;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mode-btn-active-pvp {
+  background-color: rgba(193, 255, 254, 0.1);
+  border-color: rgba(193, 255, 254, 0.4);
+  color: var(--primary);
+}
+
+.mode-btn-active-pvp svg {
+  opacity: 1;
+}
+
+.mode-btn-active-pve {
+  background-color: rgba(255, 81, 250, 0.1);
+  border-color: rgba(255, 81, 250, 0.4);
+  color: var(--secondary);
+}
+
+.mode-btn-active-pve svg {
+  opacity: 1;
+}
