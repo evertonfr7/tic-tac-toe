@@ -1,0 +1,26 @@
+.game-tile {
+  width: 100px;
+  height: 100px;
+  background-color: var(--surface-container-highest);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.game-tile:hover:not(:disabled) {
+  background-color: var(--surface-bright);
+}
+
+.tile-content-x {
+  color: var(--primary-fixed);
+  filter: drop-shadow(0 0 40px rgba(193, 255, 254, 0.4));
+}
+
+.tile-content-o {
+  color: var(--secondary);
+  filter: drop-shadow(0 0 40px rgba(255, 81, 250, 0.4));
+}

@@ -1,0 +1,17 @@
+.action-buttons-container {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-2);
+}
+
+.btn-reset {
+  background: transparent;
+  border: none;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+.btn-reset:hover {
+  color: var(--on-surface);
+}

@@ -1,0 +1,11 @@
+.game-board-container {
+  background-color: var(--surface-container);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-8);
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-2);
+}
